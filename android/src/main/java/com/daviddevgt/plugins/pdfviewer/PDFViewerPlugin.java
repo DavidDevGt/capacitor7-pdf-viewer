@@ -8,7 +8,8 @@ import com.getcapacitor.PluginCall;
 import com.getcapacitor.PluginMethod;
 import com.getcapacitor.annotation.CapacitorPlugin;
 import com.rajat.pdfviewer.PdfViewerActivity;
-import com.rajat.pdfviewer.SaveTo;
+import com.rajat.pdfviewer.util.saveTo;
+import java.util.Collections;
 
 @CapacitorPlugin(name = "PDFViewer")
 public class PDFViewerPlugin extends Plugin {
@@ -24,26 +25,30 @@ public class PDFViewerPlugin extends Plugin {
         call.resolve(ret);
     }
 
+    /**
+     * Abre un PDF desde una URL usando la librería Pdf-Viewer en su versión 2.x+.
+     * Ajusta los parámetros (pdfTitle, saveTo, enableDownload) según tu preferencia.
+     */
     @PluginMethod
     public void openPDF(PluginCall call) {
         String url = call.getString("url");
-
         if (url == null) {
             call.reject("No URL Provided");
+            return;
         }
 
         try {
-            PdfViewerActivity.launchPdfFromUrl(
-                getContext(),
+            PdfViewerActivity.Companion.launchPdfFromUrl(
+                getActivity(),
                 url,
-                SaveTo.NONE,
-                false
+                "PDF Reader",
+                saveTo.ASK_EVERYTIME,
+                false,
+                Collections.emptyMap()
             );
             call.resolve();
         } catch (Exception e) {
-            // TODO: handle exception
             call.reject("Error opening PDF: " + e.getMessage());
         }
-        
     }
 }

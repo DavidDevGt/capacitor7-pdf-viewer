@@ -9,6 +9,8 @@ buildscript {
     repositories {
         google()
         mavenCentral()
+        maven { url "https://jitpack.io" }
+        jcenter()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:8.7.2'
@@ -45,6 +47,8 @@ android {
 repositories {
     google()
     mavenCentral()
+    maven { url "https://jitpack.io" }
+    jcenter()
 }
 
 
@@ -55,5 +59,5 @@ dependencies {
     testImplementation "junit:junit:$junitVersion"
     androidTestImplementation "androidx.test.ext:junit:$androidxJunitVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$androidxEspressoCoreVersion"
-    implementation 'io.github.afreakyelf:Pdf-Viewer:latest-version'
+    implementation 'io.github.afreakyelf:Pdf-Viewer:2.1.1'
 }
